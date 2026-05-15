@@ -152,7 +152,7 @@
 <div class="header">
   <div class="header-logo">🍽️</div>
   <h1>Trabalhe Conosco</h1>
-  <div class="header-empresa" id="js-empresa-nome">Cantina em Casa / Lumar Alimentos</div>
+  <div class="header-empresa">Cantina em Casa / Lumar Alimentos</div>
   <div class="header-sub">📍 Goiânia, GO — Preencha o formulário abaixo</div>
   <div class="prog-wrap" id="js-prog"><div class="prog-bar" id="js-prog-bar"></div></div>
 </div>
@@ -309,37 +309,20 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRhaWNheHRqdGlrZGFqbWh0c3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0MjgwNzcsImV4cCI6MjA5MzAwNDA3N30.G923g-1cmjrQZi7EoOcZcP1PieO9AKmk4mMMUgT4hbE'
   );
 
-  /* ── Empresa via ?e=cantina ou ?e=lumar ── */
-  const _params    = new URLSearchParams(location.search);
-  const _empresaId = ['cantina','lumar'].includes(_params.get('e')) ? _params.get('e') : 'cantina';
+  const _empresaId = 'cantina';
 
-  const EMPRESA_NOMES = { cantina: 'Cantina em Casa', lumar: 'Lumar Alimentos' };
-
-  const VAGAS = {
-    cantina: [
-      'Atendente de Balcão',
-      'Auxiliar de Produção',
-      'Auxiliar de Produção - Empacotador',
-      'Auxiliar Financeiro e Departamento Pessoal',
-      'Motorista - Entregador',
-      'Outro / Não encontrei minha vaga',
-    ],
-    lumar: [
-      'Atendente de Balcão',
-      'Auxiliar de Produção',
-      'Auxiliar de Produção - Empacotador',
-      'Auxiliar Financeiro e Departamento Pessoal',
-      'Motorista - Entregador',
-      'Outro / Não encontrei minha vaga',
-    ],
-  };
-
-  /* Ajusta nome da empresa no header */
-  document.getElementById('js-empresa-nome').textContent = EMPRESA_NOMES[_empresaId];
+  const VAGAS = [
+    'Atendente de Balcão',
+    'Auxiliar de Produção',
+    'Auxiliar de Produção - Empacotador',
+    'Auxiliar Financeiro e Departamento Pessoal',
+    'Motorista - Entregador',
+    'Outro / Não encontrei minha vaga',
+  ];
 
   /* Popula lista de vagas */
   const _vagaSel = document.getElementById('vaga');
-  (VAGAS[_empresaId] || VAGAS.cantina).forEach(v => {
+  VAGAS.forEach(v => {
     const o = document.createElement('option');
     o.value = v; o.textContent = v;
     _vagaSel.appendChild(o);
