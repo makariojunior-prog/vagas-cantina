@@ -4,55 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trabalhe Conosco — Cantina em Casa / Lumar Alimentos</title>
-  <meta name="description" content="Envie seu currículo e candidate-se a uma vaga na Cantina em Casa ou Lumar Alimentos em Goiânia, GO.">
+  <meta name="description" content="Candidate-se a uma vaga na Cantina em Casa ou Lumar Alimentos em Goiânia, GO.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #FFF8F3;
+      background: #F7F3EF;
       color: #1a1a1a;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Header ── */
-    .header {
-      background: linear-gradient(135deg, #E8560A 0%, #C44008 100%);
-      color: #fff;
-      padding: 28px 20px 24px;
-      text-align: center;
-    }
-    .header-logo { font-size: 40px; margin-bottom: 8px; }
-    .header h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
-    .header-sub { font-size: 13px; opacity: 0.85; margin-top: 4px; }
-    .header-empresa { font-size: 15px; font-weight: 600; margin-top: 6px; opacity: 0.95; }
+    /* ── Banner ── */
+    .banner { width: 100%; display: block; line-height: 0; }
+    .banner img { width: 100%; height: auto; display: block; }
 
-    .prog-wrap { width: 100%; height: 4px; background: rgba(255,255,255,0.25); margin-top: 16px; border-radius: 2px; display: none; }
-    .prog-bar   { height: 100%; background: #fff; border-radius: 2px; transition: width 0.35s ease; width: 0%; }
+    /* ── Sub-header ── */
+    .subheader {
+      background: linear-gradient(135deg, #E8560A, #C44008);
+      color: #fff;
+      text-align: center;
+      padding: 18px 20px 20px;
+    }
+    .subheader h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; }
+    .subheader p  { font-size: 13px; opacity: 0.88; margin-top: 4px; }
+    .prog-wrap { width: 100%; max-width: 400px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 12px auto 0; display: none; }
+    .prog-bar  { height: 100%; background: #fff; border-radius: 2px; transition: width 0.35s ease; width: 0%; }
 
     /* ── Container ── */
-    .container { max-width: 560px; margin: 0 auto; padding: 20px 14px 72px; }
+    .container { max-width: 580px; margin: 0 auto; padding: 22px 14px 72px; }
 
     /* ── Card ── */
     .card {
       background: #fff;
-      border-radius: 14px;
-      padding: 20px 18px;
+      border-radius: 16px;
+      padding: 22px 20px;
       margin-bottom: 14px;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
     }
     .card-title {
-      font-size: 12px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em; color: #E8560A; margin-bottom: 16px;
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #E8560A; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .card-title::after {
+      content: ''; flex: 1; height: 1px; background: #F3EDE8;
     }
 
-    /* ── Field ── */
-    .field { margin-bottom: 16px; }
+    /* ── Fields ── */
+    .field { margin-bottom: 18px; }
     .field:last-child { margin-bottom: 0; }
 
     label {
-      display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 7px;
+      display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px;
     }
     label .req { color: #E8560A; margin-left: 2px; }
     label .opt { font-weight: 400; color: #9CA3AF; font-size: 12px; margin-left: 4px; }
@@ -60,100 +65,107 @@
     input[type=text], input[type=tel], select, textarea {
       width: 100%;
       border: 1.5px solid #E5E7EB;
-      border-radius: 9px;
-      padding: 13px 14px;
+      border-radius: 10px;
+      padding: 13px 15px;
       font-size: 16px;
       color: #111;
       background: #FAFAFA;
       font-family: inherit;
       transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
-      appearance: none;
-      -webkit-appearance: none;
+      -webkit-appearance: none; appearance: none;
     }
     input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #E8560A;
-      background: #fff;
-      box-shadow: 0 0 0 3px rgba(232,86,10,0.12);
+      outline: none; border-color: #E8560A; background: #fff;
+      box-shadow: 0 0 0 3px rgba(232,86,10,0.1);
     }
-    textarea { resize: vertical; min-height: 80px; line-height: 1.55; }
-    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    textarea { resize: vertical; min-height: 84px; line-height: 1.55; }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+    }
 
     /* ── Radio pills ── */
-    .radio-group { display: flex; gap: 10px; }
-    .radio-opt { flex: 1; }
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-opt { flex: 1; min-width: 80px; }
     .radio-opt input[type=radio] { position: absolute; opacity: 0; width: 0; height: 0; }
     .radio-opt label {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 12px 10px; border: 1.5px solid #E5E7EB; border-radius: 9px;
-      cursor: pointer; font-size: 14px; font-weight: 600; color: #6B7280;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 11px 8px; border: 1.5px solid #E5E7EB; border-radius: 10px;
+      cursor: pointer; font-size: 13px; font-weight: 700; color: #6B7280;
       background: #FAFAFA; transition: all 0.15s; user-select: none; margin: 0;
-      text-align: center;
+      line-height: 1.3; text-align: center;
     }
+    .radio-opt label small { font-size: 10px; font-weight: 500; color: #9CA3AF; margin-top: 2px; }
     .radio-opt input[type=radio]:checked + label {
       background: #FFF0E8; border-color: #E8560A; color: #C44008;
     }
-    .radio-opt label:hover { border-color: #E8560A; }
+    .radio-opt input[type=radio]:checked + label small { color: #C44008; }
+    .radio-opt label:hover { border-color: #E8560A; color: #C44008; }
 
     /* ── Upload zone ── */
     .upload-zone {
-      border: 2px dashed #D1D5DB;
-      border-radius: 10px;
-      padding: 24px 16px;
-      text-align: center;
-      cursor: pointer;
-      background: #FAFAFA;
-      transition: all 0.15s;
+      border: 2px dashed #D1D5DB; border-radius: 12px;
+      padding: 26px 16px; text-align: center; cursor: pointer;
+      background: #FAFAFA; transition: all 0.15s;
     }
     .upload-zone:hover, .upload-zone.drag-over { border-color: #E8560A; background: #FFF5F0; }
     .upload-zone.has-file { border-color: #16A34A; background: #F0FDF4; border-style: solid; }
-    .upload-icon { font-size: 32px; margin-bottom: 8px; line-height: 1; }
-    .upload-main { font-size: 14px; font-weight: 600; color: #374151; }
-    .upload-sub  { font-size: 12px; color: #9CA3AF; margin-top: 4px; }
+    .upload-icon { font-size: 34px; margin-bottom: 8px; line-height: 1; }
+    .upload-main { font-size: 14px; font-weight: 700; color: #374151; }
+    .upload-sub  { font-size: 12px; color: #9CA3AF; margin-top: 4px; line-height: 1.5; }
     .upload-zone.has-file .upload-main { color: #166534; }
+    .upload-zone.has-file .upload-sub  { color: #15803D; }
 
-    /* ── Submit button ── */
+    /* ── Submit ── */
     .btn-submit {
       display: block; width: 100%;
-      padding: 17px;
+      padding: 18px;
       background: linear-gradient(135deg, #E8560A, #C44008);
-      color: #fff; border: none; border-radius: 12px;
-      font-size: 17px; font-weight: 800; letter-spacing: 0.2px;
+      color: #fff; border: none; border-radius: 13px;
+      font-size: 17px; font-weight: 800; letter-spacing: 0.3px;
       cursor: pointer; transition: opacity 0.15s, transform 0.1s;
-      font-family: inherit; margin-top: 6px;
+      font-family: inherit; margin-top: 4px;
+      box-shadow: 0 4px 14px rgba(232,86,10,0.35);
     }
     .btn-submit:active { transform: scale(0.98); }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
     /* ── Error ── */
     .error-banner {
-      background: #FEE2E2; color: #991B1B; padding: 12px 14px;
-      border-radius: 9px; font-size: 13px; margin-top: 12px; line-height: 1.5;
+      background: #FEE2E2; color: #991B1B;
+      padding: 13px 15px; border-radius: 10px;
+      font-size: 13px; margin-top: 12px; line-height: 1.55;
+      border: 1px solid #FECACA;
     }
 
-    /* ── Conditional field ── */
-    .conditional { display: none; margin-top: 14px; }
+    /* ── Conditional ── */
+    .conditional { display: none; margin-top: 16px; }
     .conditional.visible { display: block; }
 
-    /* ── Success screen ── */
-    #success-area {
-      display: none; text-align: center; padding: 48px 20px;
-    }
-    .success-icon { font-size: 72px; margin-bottom: 20px; }
+    /* ── Success ── */
+    #success-area { display: none; text-align: center; padding: 48px 24px; }
+    .success-icon  { font-size: 72px; margin-bottom: 20px; }
     .success-title { font-size: 24px; font-weight: 800; color: #166534; margin-bottom: 12px; }
-    .success-body  { font-size: 15px; color: #555; line-height: 1.65; }
+    .success-body  { font-size: 15px; color: #555; line-height: 1.7; }
 
     /* ── Footer ── */
-    .footer { text-align: center; font-size: 11px; color: #C4BAB4; padding: 16px 0 32px; }
+    .footer { text-align: center; font-size: 11px; color: #C4BAB4; padding: 10px 0 32px; }
+
+    /* ── Hint ── */
+    .hint { font-size: 12px; color: #9CA3AF; margin-top: 5px; }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-logo">🍽️</div>
-  <h1>Trabalhe Conosco</h1>
-  <div class="header-empresa">Cantina em Casa / Lumar Alimentos</div>
-  <div class="header-sub">📍 Goiânia, GO — Preencha o formulário abaixo</div>
+<!-- Banner -->
+<div class="banner">
+  <img src="banner.png" alt="Faça parte da nossa equipe — Cantina em Casa / Lumar Alimentos">
+</div>
+
+<!-- Sub-header -->
+<div class="subheader">
+  <h1>📝 Formulário de Inscrição</h1>
+  <p>Preencha os campos abaixo para se candidatar a uma vaga</p>
   <div class="prog-wrap" id="js-prog"><div class="prog-bar" id="js-prog-bar"></div></div>
 </div>
 
@@ -173,7 +185,8 @@
 
       <div class="field">
         <label for="whatsapp">WhatsApp com DDD <span class="req">*</span></label>
-        <input type="tel" id="whatsapp" placeholder="(62) 9 9999-9999" autocomplete="tel" inputmode="numeric">
+        <input type="tel" id="whatsapp" placeholder="(62) 9 9999-9999" inputmode="numeric">
+        <p class="hint">Usaremos apenas para entrar em contato sobre sua candidatura.</p>
       </div>
 
       <div class="field">
@@ -193,7 +206,7 @@
 
     <!-- Vaga -->
     <div class="card">
-      <div class="card-title">💼 Vaga</div>
+      <div class="card-title">💼 Vaga desejada</div>
 
       <div class="field">
         <label for="vaga">Qual vaga você está se candidatando? <span class="req">*</span></label>
@@ -218,13 +231,13 @@
 
       <div class="field">
         <label for="pode_comecar">Quando você poderia começar? <span class="req">*</span></label>
-        <input type="text" id="pode_comecar" placeholder="Ex: imediatamente, em 2 semanas, 01/07…">
+        <input type="text" id="pode_comecar" placeholder="Ex: imediatamente, em 2 semanas, dia 01/07…">
       </div>
     </div>
 
     <!-- Experiência -->
     <div class="card">
-      <div class="card-title">📋 Experiência</div>
+      <div class="card-title">📋 Experiência profissional</div>
 
       <div class="field">
         <label>Você tem experiência na área da vaga? <span class="req">*</span></label>
@@ -240,8 +253,8 @@
         </div>
 
         <div class="conditional" id="exp_desc_wrap">
-          <label for="exp_desc" style="margin-top:0">Descreva brevemente sua experiência profissional <span class="opt">(opcional)</span></label>
-          <textarea id="exp_desc" placeholder="Conte sobre onde trabalhou e o que fazia…"></textarea>
+          <label for="exp_desc">Descreva brevemente sua experiência <span class="opt">(opcional)</span></label>
+          <textarea id="exp_desc" placeholder="Onde trabalhou, quanto tempo, o que fazia…"></textarea>
         </div>
       </div>
 
@@ -249,12 +262,42 @@
         <label>Possui CNH? <span class="req">*</span></label>
         <div class="radio-group">
           <div class="radio-opt">
-            <input type="radio" name="cnh" id="cnh_sim" value="sim">
+            <input type="radio" name="cnh" id="cnh_sim" value="sim" onchange="toggleCnhTipo()">
             <label for="cnh_sim">✅ Sim</label>
           </div>
           <div class="radio-opt">
-            <input type="radio" name="cnh" id="cnh_nao" value="nao">
+            <input type="radio" name="cnh" id="cnh_nao" value="nao" onchange="toggleCnhTipo()">
             <label for="cnh_nao">❌ Não</label>
+          </div>
+        </div>
+
+        <div class="conditional" id="cnh_tipo_wrap">
+          <label>Qual categoria da sua CNH?</label>
+          <div class="radio-group">
+            <div class="radio-opt">
+              <input type="radio" name="cnh_tipo" id="ct_a" value="A">
+              <label for="ct_a">A<small>Moto</small></label>
+            </div>
+            <div class="radio-opt">
+              <input type="radio" name="cnh_tipo" id="ct_b" value="B">
+              <label for="ct_b">B<small>Carro</small></label>
+            </div>
+            <div class="radio-opt">
+              <input type="radio" name="cnh_tipo" id="ct_ab" value="AB">
+              <label for="ct_ab">AB<small>Moto+Carro</small></label>
+            </div>
+            <div class="radio-opt">
+              <input type="radio" name="cnh_tipo" id="ct_c" value="C">
+              <label for="ct_c">C<small>Caminhão</small></label>
+            </div>
+            <div class="radio-opt">
+              <input type="radio" name="cnh_tipo" id="ct_d" value="D">
+              <label for="ct_d">D<small>Ônibus</small></label>
+            </div>
+            <div class="radio-opt">
+              <input type="radio" name="cnh_tipo" id="ct_e" value="E">
+              <label for="ct_e">E<small>Articulado</small></label>
+            </div>
           </div>
         </div>
       </div>
@@ -266,17 +309,19 @@
 
       <div class="field">
         <label for="motivacao">Por que você quer trabalhar na Cantina em Casa / Lumar Alimentos? <span class="req">*</span></label>
-        <textarea id="motivacao" placeholder="Conte um pouco sobre sua motivação…" style="min-height:90px"></textarea>
+        <textarea id="motivacao" placeholder="Conte um pouco sobre sua motivação…" style="min-height:95px"></textarea>
       </div>
 
       <div class="field">
-        <label>Envie seu currículo <span class="opt">(opcional · PDF, DOC ou DOCX · máx. 5 MB)</span></label>
+        <label>Envie seu currículo <span class="opt">(opcional)</span></label>
         <div class="upload-zone" id="upload-zone" onclick="document.getElementById('curriculo-file').click()">
           <div class="upload-icon" id="upload-icon">📄</div>
           <div class="upload-main" id="upload-main">Toque aqui para selecionar o arquivo</div>
-          <div class="upload-sub" id="upload-sub">Arraste ou clique para escolher</div>
+          <div class="upload-sub" id="upload-sub">PDF, DOC, DOCX, JPG, PNG · máx. 10 MB<br>Arraste ou clique para escolher</div>
         </div>
-        <input type="file" id="curriculo-file" accept=".pdf,.doc,.docx" style="display:none" onchange="onFileChange(this)">
+        <input type="file" id="curriculo-file"
+          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.heic,.heif,.webp"
+          style="display:none" onchange="onFileChange(this)">
       </div>
     </div>
 
@@ -303,7 +348,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
-  /* ── Supabase ── */
   const _supa = supabase.createClient(
     'https://taicaxtjtikdajmhtsxc.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRhaWNheHRqdGlrZGFqbWh0c3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0MjgwNzcsImV4cCI6MjA5MzAwNDA3N30.G923g-1cmjrQZi7EoOcZcP1PieO9AKmk4mMMUgT4hbE'
@@ -311,7 +355,7 @@
 
   const _empresaId = 'cantina';
 
-  /* Carrega configuração do formulário (vagas + status aberto/fechado) */
+  /* ── Carrega config do Supabase (vagas + aberto/fechado) ── */
   async function carregarConfig() {
     const { data } = await _supa
       .from('formulario_config')
@@ -320,8 +364,8 @@
       .single();
 
     if (data && !data.formulario_aberto) {
-      document.getElementById('form-area').style.display = 'none';
       const msg = data.mensagem_encerrado || 'Não temos vagas abertas no momento. Fique de olho em nossas redes sociais!';
+      document.getElementById('form-area').style.display = 'none';
       document.getElementById('success-area').innerHTML = `
         <div class="success-icon">📋</div>
         <div class="success-title" style="color:#92400E">Inscrições encerradas</div>
@@ -336,11 +380,11 @@
       'Auxiliar Financeiro e Departamento Pessoal','Motorista - Entregador',
       'Outro / Não encontrei minha vaga',
     ];
-    const _vagaSel = document.getElementById('vaga');
+    const sel = document.getElementById('vaga');
     vagas.forEach(v => {
       const o = document.createElement('option');
       o.value = v; o.textContent = v;
-      _vagaSel.appendChild(o);
+      sel.appendChild(o);
     });
   }
 
@@ -364,32 +408,30 @@
     if (msg) el.scrollIntoView({ behavior:'smooth', block:'nearest' });
   }
 
-  /* ── Condicional experiência ── */
   function toggleExpDesc() {
-    const sim = document.getElementById('exp_sim').checked;
-    document.getElementById('exp_desc_wrap').classList.toggle('visible', sim);
+    document.getElementById('exp_desc_wrap').classList.toggle('visible', document.getElementById('exp_sim').checked);
+  }
+  function toggleCnhTipo() {
+    document.getElementById('cnh_tipo_wrap').classList.toggle('visible', document.getElementById('cnh_sim').checked);
   }
 
-  /* ── Upload de arquivo ── */
+  /* ── Upload ── */
   let _arquivo = null;
 
   function onFileChange(input) {
     const f = input.files[0];
     if (!f) return;
-    if (f.size > 5 * 1024 * 1024) {
-      showError('O arquivo deve ter no máximo 5 MB. Comprima o PDF ou escolha outro arquivo.');
-      input.value = '';
-      return;
+    if (f.size > 10 * 1024 * 1024) {
+      showError('O arquivo deve ter no máximo 10 MB.');
+      input.value = ''; return;
     }
     _arquivo = f;
-    const zone = document.getElementById('upload-zone');
-    zone.classList.add('has-file');
+    document.getElementById('upload-zone').classList.add('has-file');
     document.getElementById('upload-icon').textContent = '✅';
     document.getElementById('upload-main').textContent = f.name;
-    document.getElementById('upload-sub').textContent  = (f.size/1024).toFixed(0) + ' KB · clique para trocar';
+    document.getElementById('upload-sub').textContent = (f.size/1024).toFixed(0) + ' KB · toque para trocar';
   }
 
-  /* Drag-and-drop */
   const _zone = document.getElementById('upload-zone');
   _zone.addEventListener('dragover',  e => { e.preventDefault(); _zone.classList.add('drag-over'); });
   _zone.addEventListener('dragleave', ()  => _zone.classList.remove('drag-over'));
@@ -397,20 +439,16 @@
     e.preventDefault(); _zone.classList.remove('drag-over');
     const f = e.dataTransfer.files[0];
     if (!f) return;
-    const input = document.getElementById('curriculo-file');
-    /* Simula seleção */
-    try {
-      const dt = new DataTransfer(); dt.items.add(f); input.files = dt.files;
-    } catch(_) {}
+    try { const dt = new DataTransfer(); dt.items.add(f); document.getElementById('curriculo-file').files = dt.files; } catch(_) {}
     onFileChange({ files: [f] });
   });
 
-  /* ── Máscara de telefone ── */
+  /* ── Máscara telefone ── */
   document.getElementById('whatsapp').addEventListener('input', function() {
-    let v = this.value.replace(/\D/g, '');
-    if (v.length > 11) v = v.slice(0, 11);
-    if (v.length > 7)       v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
-    else if (v.length > 2)  v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    let v = this.value.replace(/\D/g,'');
+    if (v.length > 11) v = v.slice(0,11);
+    if (v.length > 7)      v = '('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
+    else if (v.length > 2) v = '('+v.slice(0,2)+') '+v.slice(2);
     this.value = v;
   });
 
@@ -427,9 +465,9 @@
     const temExp      = getRadio('tem_exp');
     const expDesc     = document.getElementById('exp_desc').value.trim();
     const possuiCnh   = getRadio('cnh');
+    const cnhTipo     = getRadio('cnh_tipo');
     const motivacao   = document.getElementById('motivacao').value.trim();
 
-    /* Validações */
     if (!nome)        { showError('Por favor, informe seu nome completo.'); return; }
     if (!whatsapp || whatsapp.replace(/\D/g,'').length < 10)
                       { showError('Por favor, informe seu WhatsApp com DDD (ex: 62 9 9999-9999).'); return; }
@@ -439,6 +477,8 @@
     if (!podeComecar) { showError('Por favor, informe quando poderia começar.'); return; }
     if (!temExp)      { showError('Por favor, informe se tem experiência na área.'); return; }
     if (!possuiCnh)   { showError('Por favor, informe se possui CNH.'); return; }
+    if (possuiCnh === 'sim' && !cnhTipo)
+                      { showError('Por favor, informe a categoria da sua CNH.'); return; }
     if (!motivacao)   { showError('Por favor, escreva sua motivação (campo obrigatório).'); return; }
 
     const btn = document.getElementById('btn-submit');
@@ -447,21 +487,19 @@
     setProgress(10, true);
 
     try {
-      /* 1. Upload do currículo (se houver) */
       let curriculoUrl = null;
       if (_arquivo) {
-        btn.textContent = '⏳ Enviando currículo...';
+        btn.textContent = '⏳ Enviando arquivo…';
         setProgress(30, true);
         const ext      = _arquivo.name.split('.').pop().toLowerCase();
         const fileName = `${_empresaId}/${Date.now()}_${normStr(nome)}.${ext}`;
         const { error: upErr } = await _supa.storage.from('curriculos').upload(fileName, _arquivo, { contentType: _arquivo.type });
-        if (upErr) throw new Error('Erro ao enviar currículo: ' + upErr.message);
+        if (upErr) throw new Error('Erro ao enviar arquivo: ' + upErr.message);
         const { data: { publicUrl } } = _supa.storage.from('curriculos').getPublicUrl(fileName);
         curriculoUrl = publicUrl;
       }
 
-      /* 2. Salva candidato no Supabase */
-      btn.textContent = '⏳ Salvando inscrição...';
+      btn.textContent = '⏳ Salvando inscrição…';
       setProgress(70, true);
 
       const ts = Date.now();
@@ -479,10 +517,11 @@
         tem_experiencia:       temExp === 'sim',
         descricao_experiencia: expDesc || null,
         possui_cnh:            possuiCnh === 'sim',
+        cnh_tipo:              possuiCnh === 'sim' ? cnhTipo : null,
         motivacao,
         curriculo_url:         curriculoUrl,
         status:                'novo',
-        data_inscricao:        new Date().toISOString().slice(0, 10),
+        data_inscricao:        new Date().toISOString().slice(0,10),
       });
 
       if (error) throw new Error(error.message);
@@ -496,7 +535,7 @@
       }, 400);
 
     } catch (e) {
-      showError(e.message || 'Ocorreu um erro inesperado. Tente novamente em instantes.');
+      showError(e.message || 'Ocorreu um erro inesperado. Tente novamente.');
       btn.disabled    = false;
       btn.textContent = 'Enviar Inscrição →';
       setProgress(0, false);
