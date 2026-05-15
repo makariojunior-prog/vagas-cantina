@@ -311,22 +311,40 @@
 
   const _empresaId = 'cantina';
 
-  const VAGAS = [
-    'Atendente de Balcão',
-    'Auxiliar de Produção',
-    'Auxiliar de Produção - Empacotador',
-    'Auxiliar Financeiro e Departamento Pessoal',
-    'Motorista - Entregador',
-    'Outro / Não encontrei minha vaga',
-  ];
+  /* Carrega configuração do formulário (vagas + status aberto/fechado) */
+  async function carregarConfig() {
+    const { data } = await _supa
+      .from('formulario_config')
+      .select('vagas, formulario_aberto, mensagem_encerrado')
+      .eq('empresa_id', _empresaId)
+      .single();
 
-  /* Popula lista de vagas */
-  const _vagaSel = document.getElementById('vaga');
-  VAGAS.forEach(v => {
-    const o = document.createElement('option');
-    o.value = v; o.textContent = v;
-    _vagaSel.appendChild(o);
-  });
+    if (data && !data.formulario_aberto) {
+      document.getElementById('form-area').style.display = 'none';
+      const msg = data.mensagem_encerrado || 'Não temos vagas abertas no momento. Fique de olho em nossas redes sociais!';
+      document.getElementById('success-area').innerHTML = `
+        <div class="success-icon">📋</div>
+        <div class="success-title" style="color:#92400E">Inscrições encerradas</div>
+        <p class="success-body">${msg}</p>
+      `;
+      document.getElementById('success-area').style.display = 'block';
+      return;
+    }
+
+    const vagas = (data && data.vagas) || [
+      'Atendente de Balcão','Auxiliar de Produção','Auxiliar de Produção - Empacotador',
+      'Auxiliar Financeiro e Departamento Pessoal','Motorista - Entregador',
+      'Outro / Não encontrei minha vaga',
+    ];
+    const _vagaSel = document.getElementById('vaga');
+    vagas.forEach(v => {
+      const o = document.createElement('option');
+      o.value = v; o.textContent = v;
+      _vagaSel.appendChild(o);
+    });
+  }
+
+  carregarConfig();
 
   /* ── Helpers ── */
   function normStr(s) {
