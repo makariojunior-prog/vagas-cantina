@@ -10,7 +10,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #F7F3EF;
+      background: #F4F1EC;
       color: #1a1a1a;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
@@ -18,11 +18,11 @@
 
     /* ── Banner ── */
     .banner { width: 100%; display: block; line-height: 0; }
-    .banner img { width: 100%; height: auto; display: block; }
+    .banner img { width: 100%; max-height: 200px; object-fit: cover; object-position: center 30%; display: block; }
 
     /* ── Sub-header ── */
     .subheader {
-      background: linear-gradient(135deg, #E8560A, #C44008);
+      background: linear-gradient(135deg, #1B3A2B, #0F2219);
       color: #fff;
       text-align: center;
       padding: 18px 20px 20px;
@@ -45,11 +45,11 @@
     }
     .card-title {
       font-size: 11px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.1em; color: #E8560A; margin-bottom: 18px;
+      letter-spacing: 0.1em; color: #1B3A2B; margin-bottom: 18px;
       display: flex; align-items: center; gap: 6px;
     }
     .card-title::after {
-      content: ''; flex: 1; height: 1px; background: #F3EDE8;
+      content: ''; flex: 1; height: 1px; background: #E0DDD6;
     }
 
     /* ── Fields ── */
@@ -59,7 +59,7 @@
     label {
       display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px;
     }
-    label .req { color: #E8560A; margin-left: 2px; }
+    label .req { color: #C44A00; margin-left: 2px; }
     label .opt { font-weight: 400; color: #9CA3AF; font-size: 12px; margin-left: 4px; }
 
     input[type=text], input[type=tel], select, textarea {
@@ -75,8 +75,8 @@
       -webkit-appearance: none; appearance: none;
     }
     input:focus, select:focus, textarea:focus {
-      outline: none; border-color: #E8560A; background: #fff;
-      box-shadow: 0 0 0 3px rgba(232,86,10,0.1);
+      outline: none; border-color: #C8A843; background: #fff;
+      box-shadow: 0 0 0 3px rgba(200,168,67,0.15);
     }
     textarea { resize: vertical; min-height: 84px; line-height: 1.55; }
     select {
@@ -97,10 +97,10 @@
     }
     .radio-opt label small { font-size: 10px; font-weight: 500; color: #9CA3AF; margin-top: 2px; }
     .radio-opt input[type=radio]:checked + label {
-      background: #FFF0E8; border-color: #E8560A; color: #C44008;
+      background: #E8F4EE; border-color: #1B3A2B; color: #1B3A2B;
     }
-    .radio-opt input[type=radio]:checked + label small { color: #C44008; }
-    .radio-opt label:hover { border-color: #E8560A; color: #C44008; }
+    .radio-opt input[type=radio]:checked + label small { color: #1B3A2B; }
+    .radio-opt label:hover { border-color: #1B3A2B; color: #1B3A2B; }
 
     /* ── Upload zone ── */
     .upload-zone {
@@ -108,7 +108,7 @@
       padding: 26px 16px; text-align: center; cursor: pointer;
       background: #FAFAFA; transition: all 0.15s;
     }
-    .upload-zone:hover, .upload-zone.drag-over { border-color: #E8560A; background: #FFF5F0; }
+    .upload-zone:hover, .upload-zone.drag-over { border-color: #1B3A2B; background: #F0F7F3; }
     .upload-zone.has-file { border-color: #16A34A; background: #F0FDF4; border-style: solid; }
     .upload-icon { font-size: 34px; margin-bottom: 8px; line-height: 1; }
     .upload-main { font-size: 14px; font-weight: 700; color: #374151; }
@@ -120,12 +120,12 @@
     .btn-submit {
       display: block; width: 100%;
       padding: 18px;
-      background: linear-gradient(135deg, #E8560A, #C44008);
+      background: linear-gradient(135deg, #1B3A2B, #0F2219);
       color: #fff; border: none; border-radius: 13px;
       font-size: 17px; font-weight: 800; letter-spacing: 0.3px;
       cursor: pointer; transition: opacity 0.15s, transform 0.1s;
       font-family: inherit; margin-top: 4px;
-      box-shadow: 0 4px 14px rgba(232,86,10,0.35);
+      box-shadow: 0 4px 14px rgba(27,58,43,0.35);
     }
     .btn-submit:active { transform: scale(0.98); }
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
