@@ -160,6 +160,19 @@
 
     /* ── Hint ── */
     .hint { font-size: 12px; color: #9CA3AF; margin-top: 5px; }
+  
+    /* ── Aviso de cookies (medição de anúncios) ── */
+    #cookie-bar {
+      display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      background: #1B3A2B; color: #fff; padding: 14px 16px; font-size: 13px; line-height: 1.5;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.2);
+    }
+    #cookie-bar .cb-in { max-width: 580px; margin: 0 auto; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    #cookie-bar p { flex: 1 1 260px; margin: 0; }
+    #cookie-bar a { color: #fff; }
+    #cookie-bar button { border: 0; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    #cookie-bar .cb-ok { background: #fff; color: #1B3A2B; }
+    #cookie-bar .cb-no { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.6); }
   </style>
 </head>
 <body>
@@ -560,6 +573,8 @@
       if (error) throw new Error(error.message);
 
       setProgress(100, true);
+      /* Candidatura concluída: avisa a Meta (só existe se o visitante aceitou os cookies) */
+      try { if (window.fbq) fbq('track', 'Lead', { content_name: vaga, content_category: _empresaId }); } catch (_) {}
       setTimeout(() => {
         document.getElementById('form-area').style.display    = 'none';
         document.getElementById('success-area').style.display = 'block';
@@ -574,6 +589,40 @@
       setProgress(0, false);
     }
   }
+</script>
+
+<div id="cookie-bar" role="dialog" aria-label="Aviso de cookies">
+  <div class="cb-in">
+    <p>Usamos cookies do Pixel da Meta apenas para medir quais anúncios de vagas funcionam. Você pode recusar e se candidatar normalmente.
+       <a href="privacidade.html">Saiba mais</a></p>
+    <button type="button" class="cb-no" onclick="cookieEscolha('recusado')">Recusar</button>
+    <button type="button" class="cb-ok" onclick="cookieEscolha('aceito')">Aceitar</button>
+  </div>
+</div>
+<script>
+  /* Pixel "Formulário Vagas" (Meta). Só é carregado depois que o visitante aceita. */
+  var META_PIXEL_ID = '1379390730611008';
+  function carregarPixel() {
+    if (window.fbq) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+  function cookieEscolha(valor) {
+    try { localStorage.setItem('cookies_medicao', valor); } catch (_) {}
+    document.getElementById('cookie-bar').style.display = 'none';
+    if (valor === 'aceito') carregarPixel();
+  }
+  (function () {
+    var escolha = null;
+    try { escolha = localStorage.getItem('cookies_medicao'); } catch (_) {}
+    if (escolha === 'aceito') carregarPixel();
+    else if (escolha !== 'recusado') document.getElementById('cookie-bar').style.display = 'block';
+  })();
 </script>
 </body>
 </html>
