@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 Site público **"Trabalhe Conosco"** (`vagas.cantinaemcasa.com`) da Cantina em Casa / Lumar
-Alimentos. Página estática única (`index.html`, ~23 KB), GitHub Pages (`CNAME`), sem build.
+Alimentos. Página estática única (`index.html`, ~23 KB), Vercel (projeto `vagas-cantina`, deploy automático da `master`; DNS na Hostinger), sem build.
 Português (BR). Branch padrão: `master`.
 
 - **Repositório público**: só a chave `anon` do Supabase pode ficar no HTML; nada de segredos.
