@@ -360,7 +360,13 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRhaWNheHRqdGlrZGFqbWh0c3hjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0MjgwNzcsImV4cCI6MjA5MzAwNDA3N30.G923g-1cmjrQZi7EoOcZcP1PieO9AKmk4mMMUgT4hbE'
   );
 
-  const _empresaId = 'cantina';
+  const _params = new URLSearchParams(location.search);
+  const _empresaParam = (_params.get('e') || '').trim().toLowerCase();
+  const _empresaId = ['cantina', 'lumar'].includes(_empresaParam) ? _empresaParam : 'cantina';
+  const _empresaNome = { cantina: 'Cantina em Casa', lumar: 'Lumar Alimentos' }[_empresaId];
+  document.querySelector('.subheader p').textContent =
+    `Preencha os campos abaixo para se candidatar a uma vaga na ${_empresaNome}.`;
+  const _vagaParam = (_params.get('vaga') || '').trim();
 
   /* ── Carrega config do Supabase (vagas + aberto/fechado) ── */
   async function carregarConfig() {
@@ -393,6 +399,19 @@
       o.value = v; o.textContent = v;
       sel.appendChild(o);
     });
+
+    if (_vagaParam && _vagaParam.length <= 120 && !/[\u0000-\u001F\u007F]/.test(_vagaParam)) {
+      let _vagaOption = Array.from(sel.options).find(o =>
+        o.value.toLocaleLowerCase('pt-BR') === _vagaParam.toLocaleLowerCase('pt-BR')
+      );
+      if (!_vagaOption) {
+        _vagaOption = document.createElement('option');
+        _vagaOption.value = _vagaParam;
+        _vagaOption.textContent = _vagaParam;
+        sel.appendChild(_vagaOption);
+      }
+      sel.value = _vagaOption.value;
+    }
   }
 
   carregarConfig();
