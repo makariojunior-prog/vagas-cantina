@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 Site público **"Trabalhe Conosco"** (`vagas.cantinaemcasa.com`) da Cantina em Casa / Lumar
-Alimentos. Página estática única (`index.html`, ~23 KB), Vercel (projeto `vagas-cantina`, deploy automático da `master`; DNS na Hostinger), sem build.
+Alimentos. Página estática única (`index.html`, ~36 KB), Vercel (projeto `vagas-cantina`, deploy automático da `master`; DNS na Hostinger), sem build.
 Português (BR). Branch padrão: `master`.
 
 - **Repositório público**: só a chave `anon` do Supabase pode ficar no HTML; nada de segredos.
@@ -12,5 +12,5 @@ Português (BR). Branch padrão: `master`.
   formato de `candidatos` ou `formulario_config`? Ajuste os dois repositórios juntos. As tabelas
   são do domínio RH — não altere políticas de outros domínios, e lembre que policies para `anon`
   afetam o mundo todo: revise RLS antes de abrir qualquer permissão.
-- Fora do SSO do Portal (público por natureza). Banner e ícones na raiz; `banner.png` tem 1,2 MB —
+- Fora do SSO do Portal (público por natureza). Banner e ícones na raiz; a página usa `banner-800.webp`/`banner-1200.webp` (≈25–40 KB); `banner.png` (1,2 MB) é só fallback —
   não abra a imagem sem necessidade.

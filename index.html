@@ -2,351 +2,442 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Trabalhe Conosco — Cantina em Casa / Lumar Alimentos</title>
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <meta name="description" content="Candidate-se a uma vaga na Cantina em Casa ou Lumar Alimentos em Goiânia, GO.">
+  <meta name="description" content="Candidate-se a uma vaga na Cantina em Casa ou Lumar Alimentos em Goiânia, GO. Leva só 2 minutos.">
+  <meta name="theme-color" content="#1B3A2B">
+  <meta name="format-detection" content="telephone=no">
+  <meta property="og:title" content="Trabalhe Conosco — Cantina em Casa / Lumar Alimentos">
+  <meta property="og:description" content="Vagas abertas em Goiânia, GO. Inscreva-se em 2 minutos pelo celular.">
+  <meta property="og:image" content="https://vagas.cantinaemcasa.com/banner-1200.webp">
+  <link rel="preconnect" href="https://taicaxtjtikdajmhtsxc.supabase.co" crossorigin>
+  <link rel="preload" as="image" href="banner-800.webp" imagesrcset="banner-800.webp 800w, banner-1200.webp 1200w" imagesizes="(max-width: 600px) 100vw, 580px">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --verde: #1B3A2B; --verde-esc: #0F2219; --verde-claro: #E8F4EE;
+      --dourado: #C8A843; --fundo: #F4F1EC; --texto: #1a1a1a; --suave: #6B7280;
+      --borda: #E2DED6; --erro: #B91C1C;
+    }
+
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: 72px; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #F4F1EC;
-      color: #1a1a1a;
+      font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* ── Banner ── */
-    .banner { background: #1B3A2B; padding: 16px 14px 0; line-height: 0; }
-    .banner img {
-      display: block; width: 100%; height: auto;
-      max-width: 580px; margin: 0 auto;
-      border-radius: 10px 10px 0 0;
+    /* ── Topo: banner + chamada ── */
+    .hero { background: linear-gradient(180deg, var(--verde) 0%, var(--verde-esc) 100%); color: #fff; }
+    .hero-banner { padding: 12px 12px 0; line-height: 0; }
+    .hero-banner img {
+      display: block; width: 100%; height: auto; aspect-ratio: 4 / 1;
+      max-width: 580px; margin: 0 auto; border-radius: 12px;
+      background: #2a4a3a;
     }
+    .hero-txt { max-width: 580px; margin: 0 auto; padding: 18px 18px 22px; text-align: center; }
+    .hero-txt h1 { font-size: 24px; line-height: 1.2; font-weight: 800; letter-spacing: -0.2px; }
+    .hero-txt h1 em { font-style: normal; color: var(--dourado); }
+    .hero-txt p { font-size: 15px; line-height: 1.5; opacity: 0.9; margin-top: 6px; }
+    .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px; padding: 6px 11px; font-size: 13px; font-weight: 600; white-space: nowrap;
+    }
+    .vaga-destaque {
+      display: none; margin-top: 16px; background: #fff; color: var(--verde);
+      border-radius: 12px; padding: 12px 14px; border-top: 4px solid var(--dourado);
+    }
+    .vaga-destaque small { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--suave); }
+    .vaga-destaque strong { display: block; font-size: 17px; font-weight: 800; margin-top: 2px; }
 
-    /* ── Sub-header ── */
-    .subheader {
-      background: linear-gradient(135deg, #1B3A2B, #0F2219);
-      color: #fff;
-      text-align: center;
-      padding: 18px 20px 20px;
+    /* ── Progresso fixo (aparece ao rolar) ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20; background: var(--verde); color: #fff;
+      padding: 10px 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+      transform: translateY(-110%); transition: transform 0.2s ease;
     }
-    .subheader h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; }
-    .subheader p  { font-size: 13px; opacity: 0.88; margin-top: 4px; }
-    .prog-wrap { width: 100%; max-width: 400px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 12px auto 0; display: none; }
-    .prog-bar  { height: 100%; background: #fff; border-radius: 2px; transition: width 0.35s ease; width: 0%; }
+    .topbar.on { transform: none; }
+    .topbar-in { max-width: 580px; margin: 0 auto; display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; }
+    .topbar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.25); border-radius: 3px; overflow: hidden; }
+    .topbar-fill { height: 100%; width: 0%; background: var(--dourado); border-radius: 3px; transition: width 0.3s ease; }
 
     /* ── Container ── */
-    .container { max-width: 580px; margin: 0 auto; padding: 22px 14px 72px; }
+    .container { max-width: 580px; margin: 0 auto; padding: 16px 12px 40px; }
 
     /* ── Card ── */
     .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 22px 20px;
-      margin-bottom: 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+      background: #fff; border-radius: 16px; padding: 20px 16px; margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
     }
-    .card-title {
-      font-size: 11px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.1em; color: #1B3A2B; margin-bottom: 18px;
-      display: flex; align-items: center; gap: 6px;
+    .card-title { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .card-num {
+      flex: none; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--verde); color: #fff; font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
     }
-    .card-title::after {
-      content: ''; flex: 1; height: 1px; background: #E0DDD6;
-    }
+    .card-title h2 { font-size: 17px; font-weight: 800; color: var(--verde); }
 
-    /* ── Fields ── */
-    .field { margin-bottom: 18px; }
+    /* ── Campos ── */
+    .field { margin-bottom: 20px; scroll-margin-top: 80px; }
     .field:last-child { margin-bottom: 0; }
 
-    label {
-      display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px;
+    label, .q {
+      display: block; font-size: 15px; font-weight: 600; color: #1f2937; margin-bottom: 8px; line-height: 1.4;
     }
-    label .req { color: #C44A00; margin-left: 2px; }
-    label .opt { font-weight: 400; color: #9CA3AF; font-size: 12px; margin-left: 4px; }
+    .req { color: #C44A00; margin-left: 2px; }
+    .opt { font-weight: 400; color: #9CA3AF; font-size: 13px; margin-left: 4px; }
 
     input[type=text], input[type=tel], select, textarea {
-      width: 100%;
-      border: 1.5px solid #E5E7EB;
-      border-radius: 10px;
-      padding: 13px 15px;
-      font-size: 16px;
-      color: #111;
-      background: #FAFAFA;
-      font-family: inherit;
+      width: 100%; min-height: 52px;
+      border: 1.5px solid var(--borda); border-radius: 12px;
+      padding: 14px 15px; font-size: 16px; color: #111;
+      background: #FBFAF8; font-family: inherit;
       transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
       -webkit-appearance: none; appearance: none;
     }
+    input::placeholder, textarea::placeholder { color: #A8A29E; }
     input:focus, select:focus, textarea:focus {
-      outline: none; border-color: #C8A843; background: #fff;
-      box-shadow: 0 0 0 3px rgba(200,168,67,0.15);
+      outline: none; border-color: var(--verde); background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(27,58,43,0.15);
     }
-    textarea { resize: vertical; min-height: 84px; line-height: 1.55; }
+    textarea { resize: vertical; min-height: 96px; line-height: 1.55; }
     select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231B3A2B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 15px center; padding-right: 40px;
+      text-overflow: ellipsis;
     }
 
-    /* ── Radio pills ── */
-    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
-    .radio-opt { flex: 1; min-width: 80px; }
-    .radio-opt input[type=radio] { position: absolute; opacity: 0; width: 0; height: 0; }
+    /* ── Opções (botões grandes para o polegar) ── */
+    .radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .radio-group.g3 { grid-template-columns: repeat(3, 1fr); }
+    .radio-opt { position: relative; }
+    .radio-opt input[type=radio] { position: absolute; opacity: 0; width: 1px; height: 1px; }
     .radio-opt label {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 11px 8px; border: 1.5px solid #E5E7EB; border-radius: 10px;
-      cursor: pointer; font-size: 13px; font-weight: 700; color: #6B7280;
-      background: #FAFAFA; transition: all 0.15s; user-select: none; margin: 0;
-      line-height: 1.3; text-align: center;
+      min-height: 52px; padding: 10px 6px; border: 1.5px solid var(--borda); border-radius: 12px;
+      cursor: pointer; font-size: 16px; font-weight: 700; color: #4B5563;
+      background: #FBFAF8; transition: background 0.15s, border-color 0.15s, color 0.15s;
+      user-select: none; margin: 0; line-height: 1.25; text-align: center;
     }
-    .radio-opt label small { font-size: 10px; font-weight: 500; color: #9CA3AF; margin-top: 2px; }
+    .radio-opt label small { font-size: 12px; font-weight: 500; color: #9CA3AF; margin-top: 2px; }
     .radio-opt input[type=radio]:checked + label {
-      background: #E8F4EE; border-color: #1B3A2B; color: #1B3A2B;
+      background: var(--verde); border-color: var(--verde); color: #fff;
     }
-    .radio-opt input[type=radio]:checked + label small { color: #1B3A2B; }
-    .radio-opt label:hover { border-color: #1B3A2B; color: #1B3A2B; }
+    .radio-opt input[type=radio]:checked + label small { color: rgba(255,255,255,0.8); }
+    .radio-opt input[type=radio]:focus-visible + label { box-shadow: 0 0 0 3px rgba(200,168,67,0.5); }
+    @media (hover: hover) { .radio-opt label:hover { border-color: var(--verde); } }
 
-    /* ── Upload zone ── */
+    /* ── Erro por campo ── */
+    .field.invalid input, .field.invalid select, .field.invalid textarea,
+    .field.invalid .radio-opt label { border-color: var(--erro); }
+    .field-err { display: none; color: var(--erro); font-size: 13px; font-weight: 600; margin-top: 7px; }
+    .field.invalid .field-err { display: block; }
+
+    /* ── Upload ── */
     .upload-zone {
-      border: 2px dashed #D1D5DB; border-radius: 12px;
-      padding: 26px 16px; text-align: center; cursor: pointer;
-      background: #FAFAFA; transition: all 0.15s;
+      display: flex; align-items: center; gap: 14px; text-align: left;
+      border: 2px dashed #CFCAC0; border-radius: 12px; padding: 16px;
+      cursor: pointer; background: #FBFAF8; transition: all 0.15s;
     }
-    .upload-zone:hover, .upload-zone.drag-over { border-color: #1B3A2B; background: #F0F7F3; }
+    .upload-zone:active, .upload-zone.drag-over { border-color: var(--verde); background: #F0F7F3; }
     .upload-zone.has-file { border-color: #16A34A; background: #F0FDF4; border-style: solid; }
-    .upload-icon { font-size: 34px; margin-bottom: 8px; line-height: 1; }
-    .upload-main { font-size: 14px; font-weight: 700; color: #374151; }
-    .upload-sub  { font-size: 12px; color: #9CA3AF; margin-top: 4px; line-height: 1.5; }
+    .upload-icon { font-size: 30px; line-height: 1; flex: none; }
+    .upload-main { font-size: 15px; font-weight: 700; color: #374151; word-break: break-word; }
+    .upload-sub  { font-size: 13px; color: #8A8580; margin-top: 3px; line-height: 1.45; }
     .upload-zone.has-file .upload-main { color: #166534; }
     .upload-zone.has-file .upload-sub  { color: #15803D; }
 
-    /* ── Submit ── */
+    /* ── Enviar ── */
+    .submit-wrap { margin-top: 18px; }
     .btn-submit {
-      display: block; width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, #1B3A2B, #0F2219);
-      color: #fff; border: none; border-radius: 13px;
-      font-size: 17px; font-weight: 800; letter-spacing: 0.3px;
-      cursor: pointer; transition: opacity 0.15s, transform 0.1s;
-      font-family: inherit; margin-top: 4px;
-      box-shadow: 0 4px 14px rgba(27,58,43,0.35);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; min-height: 58px; padding: 16px;
+      background: #25A55F; color: #fff; border: none; border-radius: 14px;
+      font-size: 18px; font-weight: 800; letter-spacing: 0.2px;
+      cursor: pointer; transition: opacity 0.15s, transform 0.1s, background 0.15s;
+      font-family: inherit; box-shadow: 0 6px 18px rgba(37,165,95,0.35);
     }
-    .btn-submit:active { transform: scale(0.98); }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-submit:active { transform: scale(0.98); background: #1E8C50; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .prog-wrap { height: 5px; background: #E5E1D8; border-radius: 3px; margin-top: 12px; overflow: hidden; display: none; }
+    .prog-bar  { height: 100%; background: #25A55F; border-radius: 3px; transition: width 0.35s ease; width: 0%; }
+    .seguro { text-align: center; font-size: 12.5px; color: #8A8580; margin-top: 12px; line-height: 1.5; }
 
-    /* ── Error ── */
     .error-banner {
-      background: #FEE2E2; color: #991B1B;
-      padding: 13px 15px; border-radius: 10px;
-      font-size: 13px; margin-top: 12px; line-height: 1.55;
-      border: 1px solid #FECACA;
+      background: #FEE2E2; color: #991B1B; padding: 13px 15px; border-radius: 12px;
+      font-size: 14px; margin-top: 12px; line-height: 1.55; border: 1px solid #FECACA;
     }
 
-    /* ── Conditional ── */
-    .conditional { display: none; margin-top: 16px; }
+    /* ── Condicional ── */
+    .conditional { display: none; margin-top: 14px; }
     .conditional.visible { display: block; }
 
-    /* ── Success ── */
-    #success-area { display: none; text-align: center; padding: 48px 24px; }
-    .success-icon  { font-size: 72px; margin-bottom: 20px; }
-    .success-title { font-size: 24px; font-weight: 800; color: #166534; margin-bottom: 12px; }
-    .success-body  { font-size: 15px; color: #555; line-height: 1.7; }
-
-    /* ── Footer ── */
-    .footer { text-align: center; font-size: 11px; color: #C4BAB4; padding: 10px 0 32px; }
-
-    /* ── Hint ── */
-    .hint { font-size: 12px; color: #9CA3AF; margin-top: 5px; }
-  
-    /* ── Aviso de cookies (medição de anúncios) ── */
-    #cookie-bar {
-      display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
-      background: #1B3A2B; color: #fff; padding: 14px 16px; font-size: 13px; line-height: 1.5;
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.2);
+    /* ── Sucesso / encerrado ── */
+    #success-area { display: none; text-align: center; padding: 36px 20px 28px; }
+    .success-icon  { font-size: 64px; margin-bottom: 14px; line-height: 1; }
+    .success-title { font-size: 24px; font-weight: 800; color: #166534; margin-bottom: 10px; }
+    .success-body  { font-size: 15px; color: #4B5563; line-height: 1.65; }
+    .passos { text-align: left; margin: 22px auto 0; max-width: 340px; list-style: none; counter-reset: p; }
+    .passos li {
+      counter-increment: p; position: relative; padding: 0 0 14px 40px;
+      font-size: 14.5px; color: #374151; line-height: 1.45;
     }
-    #cookie-bar .cb-in { max-width: 580px; margin: 0 auto; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-    #cookie-bar p { flex: 1 1 260px; margin: 0; }
+    .passos li::before {
+      content: counter(p); position: absolute; left: 0; top: -2px; width: 26px; height: 26px;
+      border-radius: 50%; background: var(--verde-claro); color: var(--verde);
+      font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Rodapé ── */
+    .footer { text-align: center; font-size: 12px; color: #A39C95; padding: 14px 0 calc(24px + env(safe-area-inset-bottom)); line-height: 1.7; }
+    .footer a { color: inherit; }
+
+    .hint { font-size: 13px; color: #8A8580; margin-top: 6px; }
+
+    /* ── Aviso de cookies (medição de anúncios) — compacto para não cobrir o formulário ── */
+    #cookie-bar {
+      display: none; position: fixed; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom)); z-index: 50;
+      background: #10261B; color: #fff; padding: 12px 14px; font-size: 13px; line-height: 1.45;
+      border-radius: 14px; box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    }
+    #cookie-bar .cb-in { max-width: 560px; margin: 0 auto; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    #cookie-bar p { flex: 1 1 100%; margin: 0; }
     #cookie-bar a { color: #fff; }
-    #cookie-bar button { border: 0; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    #cookie-bar .cb-ok { background: #fff; color: #1B3A2B; }
-    #cookie-bar .cb-no { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.6); }
+    #cookie-bar .cb-btns { display: flex; gap: 8px; flex: 1 1 100%; }
+    #cookie-bar button { flex: 1; border: 0; border-radius: 10px; min-height: 42px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    #cookie-bar .cb-ok { background: #fff; color: var(--verde); }
+    #cookie-bar .cb-no { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+
+    @media (min-width: 600px) {
+      .hero-banner { padding-top: 18px; }
+      .hero-txt h1 { font-size: 28px; }
+      .card { padding: 24px 22px; }
+      #cookie-bar p, #cookie-bar .cb-btns { flex: initial; }
+      #cookie-bar p { flex: 1 1 260px; }
+      #cookie-bar button { padding: 0 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
   </style>
 </head>
 <body>
 
-<!-- Banner -->
-<div class="banner">
-  <img src="banner.png" alt="Faça parte da nossa equipe — Cantina em Casa / Lumar Alimentos">
+<header class="hero">
+  <div class="hero-banner">
+    <picture>
+      <source type="image/webp" srcset="banner-800.webp 800w, banner-1200.webp 1200w" sizes="(max-width: 600px) 100vw, 580px">
+      <img src="banner.png" width="1600" height="400" fetchpriority="high"
+           alt="Faça parte da nossa equipe — Cantina em Casa / Lumar Alimentos">
+    </picture>
+  </div>
+  <div class="hero-txt">
+    <h1>Venha fazer parte da <em id="js-empresa">Cantina em Casa</em>!</h1>
+    <p>Preencha o formulário abaixo para se candidatar. É rápido e pelo celular mesmo.</p>
+    <div class="chips">
+      <span class="chip">⏱️ Leva 2 minutos</span>
+      <span class="chip">📍 Goiânia - GO</span>
+      <span class="chip">💬 Retorno pelo WhatsApp</span>
+    </div>
+    <div class="vaga-destaque" id="js-vaga-destaque">
+      <small>Você está se candidatando para</small>
+      <strong id="js-vaga-nome"></strong>
+    </div>
+  </div>
+</header>
+
+<div class="topbar" id="js-topbar" aria-hidden="true">
+  <div class="topbar-in">
+    <span id="js-topbar-txt">0% preenchido</span>
+    <div class="topbar-track"><div class="topbar-fill" id="js-topbar-fill"></div></div>
+  </div>
 </div>
 
-<!-- Sub-header -->
-<div class="subheader">
-  <h1>📝 Formulário de Inscrição</h1>
-  <p>Preencha os campos abaixo para se candidatar a uma vaga</p>
-  <div class="prog-wrap" id="js-prog"><div class="prog-bar" id="js-prog-bar"></div></div>
-</div>
-
-<div class="container">
+<main class="container">
 
   <!-- ═══ FORMULÁRIO ═══ -->
   <div id="form-area">
 
     <!-- Dados pessoais -->
-    <div class="card">
-      <div class="card-title">👤 Seus dados</div>
+    <section class="card">
+      <div class="card-title"><span class="card-num">1</span><h2>Seus dados</h2></div>
 
-      <div class="field">
+      <div class="field" data-campo="nome">
         <label for="nome">Nome completo <span class="req">*</span></label>
-        <input type="text" id="nome" placeholder="Como consta no seu documento" autocomplete="name">
+        <input type="text" id="nome" placeholder="Como está no seu documento" autocomplete="name"
+               autocapitalize="words" enterkeyhint="next">
+        <p class="field-err">Informe seu nome completo.</p>
       </div>
 
-      <div class="field">
+      <div class="field" data-campo="whatsapp">
         <label for="whatsapp">WhatsApp com DDD <span class="req">*</span></label>
-        <input type="tel" id="whatsapp" placeholder="(62) 9 9999-9999" inputmode="numeric">
-        <p class="hint">Usaremos apenas para entrar em contato sobre sua candidatura.</p>
+        <input type="tel" id="whatsapp" placeholder="(62) 99999-9999" inputmode="numeric"
+               autocomplete="tel-national" enterkeyhint="next">
+        <p class="field-err">Informe um WhatsApp válido com DDD.</p>
+        <p class="hint">É por aqui que vamos falar com você.</p>
       </div>
 
-      <div class="field">
-        <label>Você mora em Goiânia ou região? <span class="req">*</span></label>
-        <div class="radio-group">
+      <div class="field" data-campo="mora_goiania">
+        <span class="q" id="q_mg">Você mora em Goiânia ou região? <span class="req">*</span></span>
+        <div class="radio-group" role="radiogroup" aria-labelledby="q_mg">
           <div class="radio-opt">
             <input type="radio" name="mora_goiania" id="mg_sim" value="sim">
-            <label for="mg_sim">✅ Sim</label>
+            <label for="mg_sim">Sim</label>
           </div>
           <div class="radio-opt">
             <input type="radio" name="mora_goiania" id="mg_nao" value="nao">
-            <label for="mg_nao">❌ Não</label>
+            <label for="mg_nao">Não</label>
           </div>
         </div>
+        <p class="field-err">Escolha uma opção.</p>
       </div>
-    </div>
+    </section>
 
     <!-- Vaga -->
-    <div class="card">
-      <div class="card-title">💼 Vaga desejada</div>
+    <section class="card">
+      <div class="card-title"><span class="card-num">2</span><h2>A vaga</h2></div>
 
-      <div class="field">
-        <label for="vaga">Qual vaga você está se candidatando? <span class="req">*</span></label>
+      <div class="field" data-campo="vaga">
+        <label for="vaga">Para qual vaga você quer se candidatar? <span class="req">*</span></label>
         <select id="vaga">
-          <option value="">— Selecione a vaga —</option>
+          <option value="">Toque para escolher a vaga</option>
         </select>
+        <p class="field-err">Escolha a vaga.</p>
       </div>
 
-      <div class="field">
-        <label>Você tem disponibilidade no turno necessário para a vaga? <span class="req">*</span></label>
-        <div class="radio-group">
+      <div class="field" data-campo="turno">
+        <span class="q" id="q_turno">Você tem disponibilidade no turno da vaga? <span class="req">*</span></span>
+        <div class="radio-group" role="radiogroup" aria-labelledby="q_turno">
           <div class="radio-opt">
             <input type="radio" name="turno" id="t_sim" value="sim">
-            <label for="t_sim">✅ Sim</label>
+            <label for="t_sim">Sim</label>
           </div>
           <div class="radio-opt">
             <input type="radio" name="turno" id="t_nao" value="nao">
-            <label for="t_nao">❌ Não</label>
+            <label for="t_nao">Não</label>
           </div>
         </div>
+        <p class="field-err">Escolha uma opção.</p>
       </div>
 
-      <div class="field">
+      <div class="field" data-campo="pode_comecar">
         <label for="pode_comecar">Quando você poderia começar? <span class="req">*</span></label>
-        <input type="text" id="pode_comecar" placeholder="Ex: imediatamente, em 2 semanas, dia 01/07…">
+        <input type="text" id="pode_comecar" placeholder="Ex: imediatamente, em 2 semanas…" enterkeyhint="next">
+        <p class="field-err">Conte quando poderia começar.</p>
       </div>
-    </div>
+    </section>
 
     <!-- Experiência -->
-    <div class="card">
-      <div class="card-title">📋 Experiência profissional</div>
+    <section class="card">
+      <div class="card-title"><span class="card-num">3</span><h2>Experiência</h2></div>
 
-      <div class="field">
-        <label>Você tem experiência na área da vaga? <span class="req">*</span></label>
-        <div class="radio-group">
+      <div class="field" data-campo="tem_exp">
+        <span class="q" id="q_exp">Você tem experiência na área da vaga? <span class="req">*</span></span>
+        <div class="radio-group" role="radiogroup" aria-labelledby="q_exp">
           <div class="radio-opt">
             <input type="radio" name="tem_exp" id="exp_sim" value="sim" onchange="toggleExpDesc()">
-            <label for="exp_sim">✅ Sim</label>
+            <label for="exp_sim">Sim</label>
           </div>
           <div class="radio-opt">
             <input type="radio" name="tem_exp" id="exp_nao" value="nao" onchange="toggleExpDesc()">
-            <label for="exp_nao">❌ Não</label>
+            <label for="exp_nao">Não</label>
           </div>
         </div>
+        <p class="field-err">Escolha uma opção.</p>
 
         <div class="conditional" id="exp_desc_wrap">
-          <label for="exp_desc">Descreva brevemente sua experiência <span class="opt">(opcional)</span></label>
-          <textarea id="exp_desc" placeholder="Onde trabalhou, quanto tempo, o que fazia…"></textarea>
+          <label for="exp_desc">Conte rapidinho sua experiência <span class="opt">(opcional)</span></label>
+          <textarea id="exp_desc" placeholder="Onde trabalhou, por quanto tempo, o que fazia…"></textarea>
         </div>
       </div>
 
-      <div class="field">
-        <label>Possui CNH? <span class="req">*</span></label>
-        <div class="radio-group">
+      <div class="field" data-campo="cnh">
+        <span class="q" id="q_cnh">Possui CNH? <span class="req">*</span></span>
+        <div class="radio-group" role="radiogroup" aria-labelledby="q_cnh">
           <div class="radio-opt">
             <input type="radio" name="cnh" id="cnh_sim" value="sim" onchange="toggleCnhTipo()">
-            <label for="cnh_sim">✅ Sim</label>
+            <label for="cnh_sim">Sim</label>
           </div>
           <div class="radio-opt">
             <input type="radio" name="cnh" id="cnh_nao" value="nao" onchange="toggleCnhTipo()">
-            <label for="cnh_nao">❌ Não</label>
+            <label for="cnh_nao">Não</label>
           </div>
         </div>
-
-        <div class="conditional" id="cnh_tipo_wrap">
-          <label>Qual categoria da sua CNH?</label>
-          <div class="radio-group">
-            <div class="radio-opt">
-              <input type="radio" name="cnh_tipo" id="ct_a" value="A">
-              <label for="ct_a">A<small>Moto</small></label>
-            </div>
-            <div class="radio-opt">
-              <input type="radio" name="cnh_tipo" id="ct_b" value="B">
-              <label for="ct_b">B<small>Carro</small></label>
-            </div>
-            <div class="radio-opt">
-              <input type="radio" name="cnh_tipo" id="ct_ab" value="AB">
-              <label for="ct_ab">AB<small>Moto+Carro</small></label>
-            </div>
-            <div class="radio-opt">
-              <input type="radio" name="cnh_tipo" id="ct_c" value="C">
-              <label for="ct_c">C<small>Caminhão</small></label>
-            </div>
-            <div class="radio-opt">
-              <input type="radio" name="cnh_tipo" id="ct_d" value="D">
-              <label for="ct_d">D<small>Ônibus</small></label>
-            </div>
-            <div class="radio-opt">
-              <input type="radio" name="cnh_tipo" id="ct_e" value="E">
-              <label for="ct_e">E<small>Articulado</small></label>
-            </div>
-          </div>
-        </div>
+        <p class="field-err">Escolha uma opção.</p>
       </div>
-    </div>
+
+      <div class="field conditional" id="cnh_tipo_wrap" data-campo="cnh_tipo">
+        <span class="q" id="q_cnht">Qual a categoria da sua CNH?</span>
+        <div class="radio-group g3" role="radiogroup" aria-labelledby="q_cnht">
+          <div class="radio-opt">
+            <input type="radio" name="cnh_tipo" id="ct_a" value="A">
+            <label for="ct_a">A<small>Moto</small></label>
+          </div>
+          <div class="radio-opt">
+            <input type="radio" name="cnh_tipo" id="ct_b" value="B">
+            <label for="ct_b">B<small>Carro</small></label>
+          </div>
+          <div class="radio-opt">
+            <input type="radio" name="cnh_tipo" id="ct_ab" value="AB">
+            <label for="ct_ab">AB<small>Moto+Carro</small></label>
+          </div>
+          <div class="radio-opt">
+            <input type="radio" name="cnh_tipo" id="ct_c" value="C">
+            <label for="ct_c">C<small>Caminhão</small></label>
+          </div>
+          <div class="radio-opt">
+            <input type="radio" name="cnh_tipo" id="ct_d" value="D">
+            <label for="ct_d">D<small>Ônibus</small></label>
+          </div>
+          <div class="radio-opt">
+            <input type="radio" name="cnh_tipo" id="ct_e" value="E">
+            <label for="ct_e">E<small>Articulado</small></label>
+          </div>
+        </div>
+        <p class="field-err">Escolha a categoria.</p>
+      </div>
+    </section>
 
     <!-- Motivação + Currículo -->
-    <div class="card">
-      <div class="card-title">🤝 Sobre você</div>
+    <section class="card">
+      <div class="card-title"><span class="card-num">4</span><h2>Sobre você</h2></div>
 
-      <div class="field">
-        <label for="motivacao">Por que você quer trabalhar na Cantina em Casa / Lumar Alimentos? <span class="req">*</span></label>
-        <textarea id="motivacao" placeholder="Conte um pouco sobre sua motivação…" style="min-height:95px"></textarea>
+      <div class="field" data-campo="motivacao">
+        <label for="motivacao">Por que você quer trabalhar com a gente? <span class="req">*</span></label>
+        <textarea id="motivacao" placeholder="Pode ser bem simples, escreva com suas palavras…"></textarea>
+        <p class="field-err">Escreva um pouquinho sobre sua motivação.</p>
       </div>
 
       <div class="field">
-        <label>Envie seu currículo <span class="opt">(opcional)</span></label>
-        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('curriculo-file').click()">
-          <div class="upload-icon" id="upload-icon">📄</div>
-          <div class="upload-main" id="upload-main">Toque aqui para selecionar o arquivo</div>
-          <div class="upload-sub" id="upload-sub">PDF, DOC, DOCX, JPG, PNG · máx. 10 MB<br>Arraste ou clique para escolher</div>
+        <span class="q">Currículo <span class="opt">(opcional)</span></span>
+        <div class="upload-zone" id="upload-zone" role="button" tabindex="0"
+             onclick="document.getElementById('curriculo-file').click()"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
+          <div class="upload-icon" id="upload-icon">📎</div>
+          <div>
+            <div class="upload-main" id="upload-main">Anexar currículo</div>
+            <div class="upload-sub" id="upload-sub">Pode ser PDF, Word ou uma foto do papel · até 10 MB</div>
+          </div>
         </div>
         <input type="file" id="curriculo-file"
-          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.heic,.heif,.webp"
+          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.heic,.heif,.webp,image/*,application/pdf"
           style="display:none" onchange="onFileChange(this)">
       </div>
-    </div>
+    </section>
 
-    <button class="btn-submit" id="btn-submit" onclick="enviar()">Enviar Inscrição →</button>
-    <div id="error-area"></div>
+    <div class="submit-wrap">
+      <button class="btn-submit" id="btn-submit" onclick="enviar()">Enviar minha inscrição</button>
+      <div class="prog-wrap" id="js-prog"><div class="prog-bar" id="js-prog-bar"></div></div>
+      <div id="error-area"></div>
+      <p class="seguro">🔒 Seus dados são usados só neste processo seletivo.</p>
+    </div>
 
   </div>
   <!-- fim #form-area -->
@@ -356,17 +447,19 @@
     <div class="success-icon">🎉</div>
     <div class="success-title">Inscrição enviada!</div>
     <p class="success-body">
-      Recebemos sua candidatura com sucesso!<br><br>
-      Nossa equipe vai analisar seu perfil e entraremos em contato pelo
-      <strong>WhatsApp</strong> em breve.<br><br>
-      Obrigado pelo seu interesse em fazer parte do nosso time! 🙌
+      Recebemos sua candidatura. Obrigado pelo interesse em fazer parte do nosso time! 🙌
     </p>
+    <ol class="passos">
+      <li>Nossa equipe analisa o seu perfil.</li>
+      <li>Se combinar com a vaga, chamamos você no <strong>WhatsApp</strong> informado.</li>
+      <li>Fique de olho nas mensagens, inclusive de números que você não tem salvos.</li>
+    </ol>
   </div>
 
-  <div class="footer">Cantina em Casa / Lumar Alimentos · Goiânia, GO · <a href="privacidade.html" style="color:inherit">Política de Privacidade</a></div>
-</div>
+  <div class="footer">Cantina em Casa / Lumar Alimentos · Goiânia, GO<br><a href="privacidade.html">Política de Privacidade</a></div>
+</main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
   const _supa = supabase.createClient(
     'https://taicaxtjtikdajmhtsxc.supabase.co',
@@ -377,8 +470,7 @@
   const _empresaParam = (_params.get('e') || '').trim().toLowerCase();
   const _empresaId = ['cantina', 'lumar'].includes(_empresaParam) ? _empresaParam : 'cantina';
   const _empresaNome = { cantina: 'Cantina em Casa', lumar: 'Lumar Alimentos' }[_empresaId];
-  document.querySelector('.subheader p').textContent =
-    `Preencha os campos abaixo para se candidatar a uma vaga na ${_empresaNome}.`;
+  document.getElementById('js-empresa').textContent = _empresaNome;
   const _vagaParam = (_params.get('vaga') || '').trim();
   const _utm = (nome, max) => (_params.get(nome) || '').trim().slice(0, max) || null;
 
@@ -393,6 +485,7 @@
     if (data && !data.formulario_aberto) {
       const msg = data.mensagem_encerrado || 'Não temos vagas abertas no momento. Fique de olho em nossas redes sociais!';
       document.getElementById('form-area').style.display = 'none';
+      document.getElementById('js-vaga-destaque').style.display = 'none';
       document.getElementById('success-area').innerHTML = `
         <div class="success-icon">📋</div>
         <div class="success-title" style="color:#92400E">Inscrições encerradas</div>
@@ -415,9 +508,9 @@
     });
 
     if (_vagaParam && _vagaParam.length <= 120 && !/[\u0000-\u001F\u007F]/.test(_vagaParam)) {
-      let _vagaOption = Array.from(sel.options).find(o =>
-        o.value.toLocaleLowerCase('pt-BR') === _vagaParam.toLocaleLowerCase('pt-BR')
-      );
+      /* Compara sem acento, caixa, espaço ou hífen ("Motorista - Entregador" = "Motorista-Entregador") */
+      const _chave = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/gi, '').toLowerCase();
+      let _vagaOption = Array.from(sel.options).find(o => o.value && _chave(o.value) === _chave(_vagaParam));
       if (!_vagaOption) {
         _vagaOption = document.createElement('option');
         _vagaOption.value = _vagaParam;
@@ -425,8 +518,19 @@
         sel.appendChild(_vagaOption);
       }
       sel.value = _vagaOption.value;
+      /* Veio do anúncio de uma vaga: mostra a vaga em destaque no topo */
+      atualizarVagaDestaque();
+      atualizarProgresso();
     }
   }
+
+  /* Destaque do topo acompanha a vaga escolhida no formulário */
+  function atualizarVagaDestaque() {
+    const v = document.getElementById('vaga').value;
+    document.getElementById('js-vaga-nome').textContent = v;
+    document.getElementById('js-vaga-destaque').style.display = v ? 'block' : 'none';
+  }
+  document.getElementById('vaga').addEventListener('change', atualizarVagaDestaque);
 
   carregarConfig();
 
@@ -447,6 +551,47 @@
     el.innerHTML = msg ? `<div class="error-banner">⚠️ ${msg}</div>` : '';
     if (msg) el.scrollIntoView({ behavior:'smooth', block:'nearest' });
   }
+
+  /* Marca o campo com erro, leva o candidato até ele e foca (abre o teclado em campos de texto) */
+  function erroCampo(campo) {
+    const f = document.querySelector(`.field[data-campo="${campo}"]`);
+    if (!f) return;
+    f.classList.add('invalid');
+    f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const alvo = f.querySelector('input[type=text], input[type=tel], select, textarea');
+    if (alvo) setTimeout(() => alvo.focus({ preventScroll: true }), 350);
+  }
+  document.getElementById('form-area').addEventListener('input', e => {
+    const f = e.target.closest('.field');
+    if (f) f.classList.remove('invalid');
+    atualizarProgresso();
+  });
+  document.getElementById('form-area').addEventListener('change', e => {
+    const f = e.target.closest('.field');
+    if (f) f.classList.remove('invalid');
+    atualizarProgresso();
+  });
+
+  /* ── Barra de progresso fixa ── */
+  function atualizarProgresso() {
+    const val = id => document.getElementById(id).value.trim();
+    const itens = [
+      !!val('nome'), val('whatsapp').replace(/\D/g,'').length >= 10, !!getRadio('mora_goiania'),
+      !!val('vaga'), !!getRadio('turno'), !!val('pode_comecar'),
+      !!getRadio('tem_exp'), !!getRadio('cnh'), !!val('motivacao'),
+    ];
+    const pct = Math.round(itens.filter(Boolean).length / itens.length * 100);
+    document.getElementById('js-topbar-fill').style.width = pct + '%';
+    document.getElementById('js-topbar-txt').textContent = pct === 100 ? 'Tudo pronto! ✅' : pct + '% preenchido';
+  }
+  const _topbar = document.getElementById('js-topbar');
+  const _hero = document.querySelector('.hero');
+  function onScrollTopbar() {
+    const visivel = document.getElementById('form-area').style.display !== 'none'
+      && _hero.getBoundingClientRect().bottom < 0;
+    _topbar.classList.toggle('on', visivel);
+  }
+  window.addEventListener('scroll', onScrollTopbar, { passive: true });
 
   function toggleExpDesc() {
     document.getElementById('exp_desc_wrap').classList.toggle('visible', document.getElementById('exp_sim').checked);
@@ -508,18 +653,18 @@
     const cnhTipo     = getRadio('cnh_tipo');
     const motivacao   = document.getElementById('motivacao').value.trim();
 
-    if (!nome)        { showError('Por favor, informe seu nome completo.'); return; }
+    if (!nome)        { erroCampo('nome'); return; }
     if (!whatsapp || whatsapp.replace(/\D/g,'').length < 10)
-                      { showError('Por favor, informe seu WhatsApp com DDD (ex: 62 9 9999-9999).'); return; }
-    if (!moraGoiania) { showError('Por favor, informe se mora em Goiânia ou região.'); return; }
-    if (!vaga)        { showError('Por favor, selecione a vaga desejada.'); return; }
-    if (!turno)       { showError('Por favor, informe sua disponibilidade de turno.'); return; }
-    if (!podeComecar) { showError('Por favor, informe quando poderia começar.'); return; }
-    if (!temExp)      { showError('Por favor, informe se tem experiência na área.'); return; }
-    if (!possuiCnh)   { showError('Por favor, informe se possui CNH.'); return; }
+                      { erroCampo('whatsapp'); return; }
+    if (!moraGoiania) { erroCampo('mora_goiania'); return; }
+    if (!vaga)        { erroCampo('vaga'); return; }
+    if (!turno)       { erroCampo('turno'); return; }
+    if (!podeComecar) { erroCampo('pode_comecar'); return; }
+    if (!temExp)      { erroCampo('tem_exp'); return; }
+    if (!possuiCnh)   { erroCampo('cnh'); return; }
     if (possuiCnh === 'sim' && !cnhTipo)
-                      { showError('Por favor, informe a categoria da sua CNH.'); return; }
-    if (!motivacao)   { showError('Por favor, escreva sua motivação (campo obrigatório).'); return; }
+                      { erroCampo('cnh_tipo'); return; }
+    if (!motivacao)   { erroCampo('motivacao'); return; }
 
     const btn = document.getElementById('btn-submit');
     btn.disabled = true;
@@ -579,13 +724,16 @@
         document.getElementById('form-area').style.display    = 'none';
         document.getElementById('success-area').style.display = 'block';
         setProgress(100, false);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        onScrollTopbar();
+        document.getElementById('success-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 400);
 
     } catch (e) {
-      showError(e.message || 'Ocorreu um erro inesperado. Tente novamente.');
+      showError((e.message && !/fetch|network/i.test(e.message))
+        ? e.message
+        : 'Não conseguimos enviar agora. Confira sua internet e toque em enviar de novo.');
       btn.disabled    = false;
-      btn.textContent = 'Enviar Inscrição →';
+      btn.textContent = 'Enviar minha inscrição';
       setProgress(0, false);
     }
   }
@@ -593,10 +741,12 @@
 
 <div id="cookie-bar" role="dialog" aria-label="Aviso de cookies">
   <div class="cb-in">
-    <p>Usamos cookies do Pixel da Meta apenas para medir quais anúncios de vagas funcionam. Você pode recusar e se candidatar normalmente.
+    <p>Usamos cookies só para medir quais anúncios de vagas funcionam. Você pode recusar e se candidatar normalmente.
        <a href="privacidade.html">Saiba mais</a></p>
-    <button type="button" class="cb-no" onclick="cookieEscolha('recusado')">Recusar</button>
-    <button type="button" class="cb-ok" onclick="cookieEscolha('aceito')">Aceitar</button>
+    <div class="cb-btns">
+      <button type="button" class="cb-no" onclick="cookieEscolha('recusado')">Recusar</button>
+      <button type="button" class="cb-ok" onclick="cookieEscolha('aceito')">Aceitar</button>
+    </div>
   </div>
 </div>
 <script>
